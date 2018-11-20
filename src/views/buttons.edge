@@ -1,0 +1,73 @@
+@layout('layouts.layout')
+
+@section('template')
+  <repeater :items="buttons" :defaults="defaults">
+    <template slot-scope="repeater">
+        <div class="cf-form-field">
+            <label>Label</label>
+            <input class="cf-form-input"
+                   v-model="repeater.item.label"
+                   ref="label">
+        </div>
+        <div class="cf-form-field">
+            <label>Color</label>
+            <select class="cf-form-input"
+                    v-model="repeater.item.color"
+                    ref="color">
+                <option value="transparent">Transparent</option>
+                <option value="malala">Malala</option>
+                <option value="white">White</option>
+            </select>
+        </div>
+        <div class="cf-form-field">
+            <label>Link</label>
+            <input class="cf-form-input"
+                   v-model="repeater.item.link"
+                   ref="link">
+        </div>
+    </template>
+  </repeater>
+@endsection
+
+@section('script')
+  <script type="text/javascript">
+    function initExtension (extensionsApi) {
+        extensionsApi.window.startAutoResizer();
+
+        let field = extensionsApi.field;
+
+        new Vue({
+            el: '#app',
+            data: {
+                buttons: [],
+                defaults: {
+                    'label': '',
+                    'color': 'transparent',
+                    'link': ''
+                }
+            },
+            mounted() {
+                let old = field.getValue()
+                if (old) {
+                    this.buttons = old;
+                }
+                this.$watch('buttons', this.handleChange.bind(this), {
+                    deep: true
+                })
+            },
+            methods: {
+                handleChange() {
+                    if (this.buttons.length) {
+                        field.setValue(JSON.stringify(this.buttons))
+                    } else {
+                        field.removeValue()
+                    }
+                }
+            },
+            detach() {
+                detachValueChangeHandler();
+            }
+        })
+    }
+  </script>
+@endsection

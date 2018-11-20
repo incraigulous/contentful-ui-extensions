@@ -1,0 +1,57 @@
+@layout('layouts.layout')
+
+@section('template')
+  <repeater :items="items" :defaults="defaults" name="question">
+      <template slot-scope="repeater">
+          <div class="cf-form-field">
+              <label>Question</label>
+              <input class="cf-form-input" v-model="repeater.item.question" ref="label">
+          </div>
+          <div class="cf-form-field">
+              <label>Answer</label>
+              <markdown-editor v-model="repeater.item.answer" class="cf-form-input content-field" ref="content"></markdown-editor>
+          </div>
+      </template>
+  </repeater>
+@endsection
+
+@section('script')
+  <script type="text/javascript">
+    function initExtension (extensionsApi) {
+        extensionsApi.window.startAutoResizer();
+        let field = extensionsApi.field;
+
+        new Vue({
+            el: '#app',
+            data: {
+                items: [],
+                defaults: {
+                  'question': '',
+                   'answer': ''
+                }
+            },
+            mounted() {
+              let old = field.getValue()
+                if (old) {
+                    this.items = old;
+                }
+                this.$watch('items', this.handleChange.bind(this), {
+                    deep: true
+                })
+            },
+            methods: {
+                handleChange() {
+                    if (this.items.length) {
+                        field.setValue(this.items)
+                    } else {
+                        field.removeValue()
+                    }
+                }
+            },
+            detach() {
+                detachValueChangeHandler();
+            }
+        })
+    }
+  </script>
+@endsection

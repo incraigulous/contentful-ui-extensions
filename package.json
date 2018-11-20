@@ -1,0 +1,16 @@
+{
+  "watch": {
+    "build": {
+      "patterns": ["src"],
+      "extensions": "edge"
+    }
+  },
+  "scripts": {
+    "build": "node src/build",
+    "watch": "npm-watch"
+  },
+  "devDependencies": {
+    "edge.js": "^1.1.4",
+    "npm-watch": "^0.4.0"
+  }
+}

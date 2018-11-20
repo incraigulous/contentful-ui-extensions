@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" >
+    <title>@section('title', 'UI Extension')</title>
+    <link rel="stylesheet" href="https://contentful.github.io/ui-extensions-sdk/cf-extension.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+
+    @!section('styles')
+    @section('style') 
+        <style type="text/css">
+            .item {
+                border-bottom: solid 12px #f7f7f7;
+                padding-bottom: 25px;
+            }
+
+            .buttons {
+                text-align: right;
+            }
+
+            .markdown-editor .markdown-body {
+                padding: 0.5em
+            }
+
+            .markdown-editor .editor-preview-active, .markdown-editor .editor-preview-active-side {
+                display: block;
+            }
+        </style>
+    @endsection
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/contentful-ui-extensions-sdk@3"></script>
+    <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+    <script src="{{ componentPath }}repeater.js"></script>
+    <script src="{{ componentPath }}markdown.js"></script>
+    @!section('scripts')
+</head>
+
+<body>
+<div id="app">
+    @!section('template')
+</div>
+
+<script type="text/javascript">
+  'use strict';
+</script>
+
+@!section('script')
+
+@if(preview)
+  <script type="text/javascript">
+     let extensionsApiMock = {
+        window: {
+            startAutoResizer() {
+
+            }
+        },
+        field: {
+            getValue() {
+
+            },
+            setValue(value) {
+                console.log('value set', value)
+            },
+            removeValue() {
+
+            }
+        }
+    };
+
+    initExtension(extensionsApiMock)
+  </script>
+@else
+  <script type="text/javascript">
+    window.contentfulExtension.init(initExtension);
+  </script>
+@endif
+
+</body>
+
+</html>

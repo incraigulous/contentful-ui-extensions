@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" >
+    <title>@section('title', 'UI Extension')</title>
+    <link rel="stylesheet" href="https://contentful.github.io/ui-extensions-sdk/cf-extension.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+
+        <style type="text/css">
+            .item {
+                border-bottom: solid 12px #f7f7f7;
+                padding-bottom: 25px;
+            }
+
+            .buttons {
+                text-align: right;
+            }
+
+            .markdown-editor .markdown-body {
+                padding: 0.5em
+            }
+
+            .markdown-editor .editor-preview-active, .markdown-editor .editor-preview-active-side {
+                display: block;
+            }
+        </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/contentful-ui-extensions-sdk@3"></script>
+    <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+    <script src="../src/components/repeater.js"></script>
+    <script src="../src/components/markdown.js"></script>
+</head>
+
+<body>
+<div id="app">
+  <repeater :items="items" :defaults="defaults">
+        <template slot-scope="repeater">
+            <div class="cf-form-field">
+                <label>Label</label>
+                <input class="cf-form-input" v-model="repeater.item.label" ref="label">
+            </div>
+            <div class="cf-form-field">
+                <label>Content</label>
+                <markdown-editor v-model="repeater.item.content" class="cf-form-input content-field" ref="content"></markdown-editor>
+            </div>
+        </template>
+    </repeater>
+</div>
+
+<script type="text/javascript">
+  'use strict';
+</script>
+
+  <script type="text/javascript">
+      function initExtension (extensionsApi) {
+          extensionsApi.window.startAutoResizer();
+          let field = extensionsApi.field;
+
+          new Vue({
+              el: '#app',
+              data: {
+                  items: [],
+                  defaults: {
+                    'label': '',
+                     'content': ''
+                  }
+              },
+              mounted() {
+                let old = field.getValue()
+                  if (old) {
+                      this.items = old;
+                  }
+                  this.$watch('items', this.handleChange.bind(this), {
+                      deep: true
+                  })
+              },
+              methods: {
+                  handleChange() {
+                      if (this.items.length) {
+                          field.setValue(this.items)
+                      } else {
+                          field.removeValue()
+                      }
+                  }
+              },
+              detach() {
+                  detachValueChangeHandler();
+              }
+          })
+      }
+    </script>
+
+  <script type="text/javascript">
+     let extensionsApiMock = {
+        window: {
+            startAutoResizer() {
+
+            }
+        },
+        field: {
+            getValue() {
+
+            },
+            setValue(value) {
+                console.log('value set', value)
+            },
+            removeValue() {
+
+            }
+        }
+    };
+
+    initExtension(extensionsApiMock)
+  </script>
+
+</body>
+
+</html>
