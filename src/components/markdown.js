@@ -28,7 +28,7 @@ Vue.component('markdown-editor', {
       default () {
         return {};
       },
-    },
+    }
   },
   mounted() {
     if (this.autoinit) this.initialize();

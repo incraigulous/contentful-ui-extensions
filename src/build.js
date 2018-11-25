@@ -11,8 +11,6 @@ const report = function (err) {
   if (err) {
     return console.log(err);
   }
-
-  console.log(`${filename} exported.`);
 }
 
 const render = function (view) {
