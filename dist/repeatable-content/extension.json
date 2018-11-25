@@ -1,0 +1,8 @@
+{
+	"id": "repeatable-content",
+	"name": "Repeatable Content",
+	"srcdoc": "./extension.html",
+	"fieldTypes": [
+		"Object"
+	]
+}

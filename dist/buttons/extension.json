@@ -1,0 +1,8 @@
+{
+	"id": "buttons",
+	"name": "Buttons",
+	"srcdoc": "./extension.html",
+	"fieldTypes": [
+		"Object"
+	]
+}

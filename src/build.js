@@ -1,6 +1,7 @@
-const fs = require('fs')
-const path = require('path')
-const edge = require('edge.js')
+const fs = require('fs');
+const path = require('path');
+const edge = require('edge.js');
+const extensions = require('../extensions');
 const viewPath = path.join(__dirname, './views');
 const distPath = path.join(__dirname, '../dist');
 const previewPath = path.join(__dirname, '../preview');
@@ -13,25 +14,26 @@ const report = function (err) {
   }
 }
 
-const render = function (view) {
-  const filename = `${distPath}/${view}.html`
-  const previewFilename = `${previewPath}/${view}.html`
-  const html = edge.render(view, {
+const render = function (extension) {
+  const dir = `${distPath}/${extension.id}`
+  const filename = `${dir}/extension.html`
+  const previewFilename = `${previewPath}/${extension.id}.html`
+  const jsonFileName = `${dir}/extension.json`
+
+  const html = edge.render(extension.id, {
     preview: false,
     componentPath: 'https://cdn.jsdelivr.net/gh/incraigulous/contentful-ui-extensions/src/components/'
   })
-  const preview = edge.render(view, {
+
+  const preview = edge.render(extension.id, {
     preview: true,
     componentPath: '../src/components/'
   })
+
+  fs.mkdir(dir, { recursive: true },report);
   fs.writeFile(filename, html, report);
+  fs.writeFile(jsonFileName, JSON.stringify(extension, null, '\t'), report);
   fs.writeFile(previewFilename, preview, report);
 }
 
-fs.readdir(viewPath, (err, files) => {
-  files
-    .filter(filename => filename.includes('.edge'))
-    .forEach(filename => {
-      render(filename.replace(".edge", ""))
-    });
-})
+extensions.forEach(render)

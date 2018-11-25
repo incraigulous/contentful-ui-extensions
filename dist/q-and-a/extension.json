@@ -1,0 +1,8 @@
+{
+	"id": "q-and-a",
+	"name": "Q&A",
+	"srcdoc": "./extension.html",
+	"fieldTypes": [
+		"Object"
+	]
+}
