@@ -1,5 +1,4 @@
-module.exports = [
-  {
+module.exports = [{
     "id": "buttons",
     "name": "Buttons",
     "srcdoc": "./extension.html",

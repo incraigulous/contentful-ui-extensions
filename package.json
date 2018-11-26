@@ -1,15 +1,20 @@
 {
   "watch": {
     "build": {
-      "patterns": ["src"],
+      "patterns": [
+        "src"
+      ],
       "extensions": "edge"
     }
   },
   "scripts": {
     "build": "node src/build",
-    "watch": "npm-watch"
+    "watch": "npm-watch",
+    "deploy": "node src/deploy"
   },
   "devDependencies": {
+    "contentful-extension-cli": "^2.0.0",
+    "dotenv": "^6.1.0",
     "edge.js": "^1.1.4",
     "npm-watch": "^0.4.0"
   }
