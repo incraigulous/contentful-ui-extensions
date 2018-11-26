@@ -10,9 +10,9 @@ const client = cli.createClient({
   spaceId: process.env.SPACE_ID
 });
 
-deploymentConfig.forEach(deploymentConfig => {
-  let e = extensions.find(e => e.id === deploymentConfig.extension)
-  let extensionConfig = Object.assign(e, deploymentConfig.overrides)
+deploymentConfig.extensions.forEach(config => {
+  let e = extensions.find(e => e.id === config.extension)
+  let extensionConfig = Object.assign(e, config.overrides)
 
   client.get(extensionConfig.id).then(handleFound, handleNotFound);
 
