@@ -24,11 +24,12 @@ deploymentConfig.extensions.forEach(config => {
   let data = config.data
   let file = `./deploy/${extensionConfig.id}.html`
   extensionConfig['srcdoc'] = file
+  const repoPath = `https://cdn.jsdelivr.net/gh/incraigulous/contentful-ui-extensions@${deploymentConfig.version}/`
 
   const html = edge.render(view, {
     preview: false,
-    componentPath: `${deployPath}src/components/`,
-    sourcePath: `${deployPath}src/`,
+    componentPath: `${repoPath}src/components/`,
+    sourcePath: `${repoPath}src/`,
     data
   })
 
@@ -37,9 +38,6 @@ deploymentConfig.extensions.forEach(config => {
       return console.log(err);
     }
   });
-
-  return;
-
 
   client.get(extensionConfig.id).then(handleFound, handleNotFound);
 
