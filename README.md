@@ -16,7 +16,7 @@ CONTENTFUL_MANAGEMENT_ACCESS_TOKEN=
 SPACE_ID
 ```
 
-Add a deployment.json with each extension you want to deploy. This allows you to map the extensions to your extension ID.
+Add a `config/deployment.json` file with each extension you want to deploy. This allows you to map the extensions to your extension ID.
 If you want to use the default IDs, you can ommit the ID field.
 
 ```
