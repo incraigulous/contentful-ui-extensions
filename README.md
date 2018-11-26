@@ -1,4 +1,4 @@
-# contentful-ui-extensions
+# Contentful UI Extensions
 
 A collection of simple and helpful Contentful UI extensions. To add the extensions to Contentful, click `install from GitHub` and add the URL to the extension .json file.  
 
