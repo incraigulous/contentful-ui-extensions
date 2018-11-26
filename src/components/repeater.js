@@ -35,10 +35,7 @@ Vue.component("repeater", {
       this.items.push(Object.assign({}, this.defaults));
     },
     remove(index) {
-      let confirmation = confirm("Are you sure you want to delete the item?");
-      if (confirmation == true) {
-        this.items.splice(index, 1);
-      }
+      this.items.splice(index, 1);
     },
     handleSort(event) {
       if (event.moved) {
