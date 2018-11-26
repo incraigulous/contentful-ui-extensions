@@ -35,7 +35,10 @@ Vue.component("repeater", {
       this.items.push(Object.assign({}, this.defaults));
     },
     remove(index) {
-      this.items.splice(index, 1);
+      let confirmation = confirm("Are you sure you want to delete the item?");
+      if (confirmation == true) {
+        this.items.splice(index, 1);
+      }
     },
     handleSort(event) {
       if (event.moved) {
@@ -45,7 +48,7 @@ Vue.component("repeater", {
   },
   template: `
     <draggable class="repeater" :list="items" :options="{'handle': '.repeater-handle'}" @change="handleSort">
-      <div class="cf-form-field item" v-for="(item, i) in items" :key="i">
+      <div class="cf-form-field" v-for="(item, i) in items" :key="i">
         <div class="repeater-item">
           <div class="repeater-handle">
               <icon icon="handle" width="9" height="20" />

@@ -43,14 +43,14 @@ Vue.component("item", {
     }
   },
   template: `
-  <div class="item">
+  <div class="item" >
     <div v-if="isOpen">
       <slot></slot>
     </div>
-    <div class="title" v-else @click="open">{{ label }}</div>
+    <div class="item-title" v-else @click="open">{{ label }}</div>
     <div class="item-controls">
-        <span @click.prevent="toggle">
-          <icon v-if="isOpen" icon="hide"></icon>
+        <span @click="close">
+            <icon v-if="isOpen" icon="hide"></icon>
         </span>
         <slot name="controls"></slot>
     </div>

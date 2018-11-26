@@ -22,15 +22,19 @@ const render = function (extension) {
 
   const html = edge.render(extension.id, {
     preview: false,
-    componentPath: 'https://cdn.jsdelivr.net/gh/incraigulous/contentful-ui-extensions/src/components/'
+    componentPath: 'https://cdn.jsdelivr.net/gh/incraigulous/contentful-ui-extensions/src/components/',
+    sourcePath: 'https://cdn.jsdelivr.net/gh/incraigulous/contentful-ui-extensions/src/'
   })
 
   const preview = edge.render(extension.id, {
     preview: true,
-    componentPath: '../src/components/'
+    componentPath: '../src/components/',
+    sourcePath: '../src/'
   })
 
-  fs.mkdir(dir, { recursive: true },report);
+  fs.mkdir(dir, {
+    recursive: true
+  }, report);
   fs.writeFile(filename, html, report);
   fs.writeFile(jsonFileName, JSON.stringify(extension, null, '\t'), report);
   fs.writeFile(previewFilename, preview, report);

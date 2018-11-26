@@ -3,10 +3,10 @@
 
 <head>
     <meta charset="UTF-8" >
-    <title>@section('title', 'UI Extension')</title>
     <link rel="stylesheet" href="https://contentful.github.io/ui-extensions-sdk/cf-extension.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
     
+
 
         <style type="text/css">
             .markdown-editor .markdown-body {
@@ -18,10 +18,15 @@
             }
 
             .repeater-item {
-                padding: 30px 30px 30px 45px;
+                padding: 15px 15px 15px 30px;
                 border: 1px solid #d3dce0;
                 border-radius: 2px;
                 position: relative;
+                transition: all .25s;
+            }
+
+            .repeater-item:hover {
+                box-shadow: 5px 5px 5px -4px rgba(0,0,0,0.14);
             }
 
             .repeater-handle {
@@ -38,10 +43,21 @@
             }
 
             .item-controls {
-                padding: 0.5em;
+                padding: 18px 15px;
                 position: absolute;
                 top: 0;
                 right: 0;
+            }
+
+            .item-controls .icon {
+                cursor: pointer;
+                color: rgb(83, 97, 113);
+            }
+
+            .item-title {
+                font-weight: bold;
+                padding: 10px;
+                margin: -10px 0;
             }
         </style>
 
@@ -54,6 +70,7 @@
     <script src="../src/components/item.js"></script>
     <script src="../src/components/repeater.js"></script>
     <script src="../src/components/markdown.js"></script>
+        <script src="../src/devExtension.js"></script>
 </head>
 
 <body>
@@ -115,28 +132,9 @@
       }
     </script>
 
-  <script type="text/javascript">
-     let extensionsApiMock = {
-        window: {
-            startAutoResizer() {
-
-            }
-        },
-        field: {
-            getValue() {
-
-            },
-            setValue(value) {
-                console.log('value set', value)
-            },
-            removeValue() {
-
-            }
-        }
-    };
-
-    initExtension(extensionsApiMock)
-  </script>
+<script type="text/javascript">
+    window.contentfulExtension.init(initExtension);
+</script>
 
 </body>
 
