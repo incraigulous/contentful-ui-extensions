@@ -3,9 +3,9 @@
 A collection of simple and helpful Contentful UI extensions. To add the extensions to Contentful, click `install from GitHub` and add the URL to the extension .json file.  
 
 Extensions: 
-**Buttons:** https://github.com/incraigulous/contentful-ui-extensions/dist/buttons/extension.json
-**Repeatable Content:** https://github.com/incraigulous/contentful-ui-extensions/dist/repeatable-content/extension.json
-**Q&A:** https://github.com/incraigulous/contentful-ui-extensions/dist/q-and-a/extension.json'
+**Buttons:** https://github.com/incraigulous/contentful-ui-extensions/dist/buttons/extension.json<br />
+**Repeatable Content:** https://github.com/incraigulous/contentful-ui-extensions/dist/repeatable-content/extension.json<br />
+**Q&A:** https://github.com/incraigulous/contentful-ui-extensions/dist/q-and-a/extension.json'<br />
 
 ### To deploy to github via CLI: 
 Clone the repository. Add a .env file with the following params: 
