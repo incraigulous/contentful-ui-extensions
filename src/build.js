@@ -1,11 +1,11 @@
 const fs = require('fs');
 const path = require('path');
 const edge = require('edge.js');
-const extensions = require('../extensions');
+const extensions = require('../config/extensions');
 const viewPath = path.join(__dirname, './views');
 const distPath = path.join(__dirname, '../dist');
 const previewPath = path.join(__dirname, '../preview');
-const deploymentConfig = require('../deployment')
+const deploymentConfig = require('../config/deployment')
 
 edge.registerViews(viewPath)
 
@@ -15,22 +15,28 @@ const report = function (err) {
   }
 }
 
-const render = function (extension) {
+const render = function ({
+  extension,
+  data
+}) {
   const dir = `${distPath}/${extension.id}`
   const filename = `${dir}/extension.html`
   const previewFilename = `${previewPath}/${extension.id}.html`
   const jsonFileName = `${dir}/extension.json`
   const repoPath = `https://cdn.jsdelivr.net/gh/incraigulous/contentful-ui-extensions@${deploymentConfig.version}/`
+
   const html = edge.render(extension.id, {
     preview: false,
     componentPath: `${repoPath}src/components/`,
-    sourcePath: `${repoPath}src/`
+    sourcePath: `${repoPath}src/`,
+    data: data
   })
 
   const preview = edge.render(extension.id, {
     preview: true,
     componentPath: '../src/components/',
-    sourcePath: '../src/'
+    sourcePath: '../src/',
+    data: data
   })
 
   fs.mkdir(dir, {

@@ -14,9 +14,9 @@
             <select class="cf-form-input"
                     v-model="repeater.item.color"
                     ref="color">
-                <option value="transparent">Transparent</option>
-                <option value="malala">Malala</option>
-                <option value="white">White</option>
+                @each(color in data.colors)
+                    <option value="{{ color.value }}">{{ color.text }}</option>
+                @endeach
             </select>
         </div>
         <div class="cf-form-field">
