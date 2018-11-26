@@ -45,7 +45,7 @@ Vue.component("repeater", {
   },
   template: `
     <draggable class="repeater" :list="items" :options="{'handle': '.repeater-handle'}" @change="handleSort">
-      <div class="cf-form-field" v-for="(item, i) in items" :key="i">
+      <div v-for="(item, i) in items" :key="i">
         <div class="repeater-item">
           <div class="repeater-handle">
               <icon icon="handle" width="9" height="20" />
