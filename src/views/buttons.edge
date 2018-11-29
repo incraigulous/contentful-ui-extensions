@@ -31,43 +31,34 @@
 
 @section('script')
   <script type="text/javascript">
-    function initExtension (extensionsApi) {
-        extensionsApi.window.startAutoResizer();
-
-        let field = extensionsApi.field;
-
-        new Vue({
-            el: '#app',
-            data: {
-                buttons: [],
-                defaults: {
-                    'label': '',
-                    'color': 'transparent',
-                    'link': ''
-                }
-            },
-            mounted() {
-                let old = field.getValue()
-                if (old) {
-                    this.buttons = old;
-                }
-                this.$watch('buttons', this.handleChange.bind(this), {
-                    deep: true
-                })
-            },
-            methods: {
-                handleChange() {
-                    if (this.buttons.length) {
-                        field.setValue(JSON.stringify(this.buttons))
-                    } else {
-                        field.removeValue()
-                    }
-                }
-            },
-            detach() {
-                detachValueChangeHandler();
+    new Vue({
+        mixins: [extension],
+        data: {
+            buttons: [],
+            defaults: {
+                'label': '',
+                'color': 'transparent',
+                'link': ''
             }
-        })
-    }
+        },
+        mounted() {
+            let old = this.field.getValue()
+            if (old) {
+                this.buttons = old;
+            }
+            this.$watch('buttons', this.handleChange.bind(this), {
+                deep: true
+            })
+        },
+        methods: {
+            handleChange() {
+                if (this.buttons.length) {
+                    this.field.setValue(JSON.stringify(this.buttons))
+                } else {
+                    this.field.removeValue()
+                }
+            }
+        }
+    })
   </script>
 @endsection

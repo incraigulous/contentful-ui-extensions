@@ -30,6 +30,7 @@ deploymentConfig.extensions.forEach(config => {
     preview: false,
     componentPath: `${repoPath}src/components/`,
     sourcePath: `${repoPath}src/`,
+    distPath: `${repoPath}dist/`,
     data
   })
 
@@ -38,6 +39,8 @@ deploymentConfig.extensions.forEach(config => {
       return console.log(err);
     }
   });
+
+  return;
 
   client.get(extensionConfig.id).then(handleFound, handleNotFound);
 

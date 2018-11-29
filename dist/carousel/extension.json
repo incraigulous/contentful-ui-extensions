@@ -1,0 +1,8 @@
+{
+	"id": "carousel",
+	"name": "Carousel",
+	"srcdoc": "./extension.html",
+	"fieldTypes": [
+		"Object"
+	]
+}

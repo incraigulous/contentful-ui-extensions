@@ -1,0 +1,104 @@
+@layout('layouts.layout')
+
+@section('template')
+  <div class="carousel" ref="root" data-options="{{ toJSON(data.options) }}">
+    <div v-if="initialized && opened" class="container padded">
+        <carousel 
+        v-if="current.content"
+        :per-page="1"
+        :loop="true"
+        :navigation-enabled="true"
+        :pagination-enabled="false"
+        :adjustable-height="false"
+        :navigate-to="selectedIndex"
+        v-model="selectedIndex">
+      <slide 
+        v-for="({content, value}, index) in options"
+        :key="index"
+        v-html="content" />
+      </carousel>
+
+      <div class="cf-form-hint" style="text-align: center;">
+          Change slides to change your selection.
+      </div>
+    </div>
+
+    <div class="cf-form-field">
+        <div style="display: flex;">
+          <div>
+              <select class="cf-form-input" type="text" v-model="value">
+                  <option v-for="({text, value}, index) in options" :key="index" :value="value" v-text="text"></option>
+              </select>
+          </div>
+         <div style="padding-left: 25px; display: flex;">
+            <div style="display: flex; justify-content: center; align-items: center;"  @click.prevent="toggle" >
+                <icon :icon="opened ? 'hide' : 'show'"/>
+            </div>
+         </div>
+        </div>
+    </div>
+  </div>
+@endsection
+
+@section('script')
+<script type="text/javascript">
+  new Vue({
+      mixins: [extension],
+      el: '#app',
+      data: {
+          initialized: false,
+          opened: true,
+          value: '',
+          options: []
+      },
+      computed: {
+          selectedIndex: {
+              get() {
+                  return this.options.findIndex(option => option.value === this.value)
+              },
+              set(index) {
+                  this.value = this.options[index].value
+              }
+          },
+          current() {
+            return this.options.find(option => option.value === this.value)
+          },
+          closed() {
+            return !this.opened
+          }
+      },
+      mounted() {
+        this.$watch('value', this.handleChange.bind(this), {
+              deep: true
+          })
+          this.options = JSON.parse(this.$refs.root.dataset.options)
+          let old = this.field.getValue()
+          this.value = old ? old : this.options[1].value
+          this.initialized = true
+      },
+      methods: {
+          handleChange() {
+              if (this.value) {
+                  this.open()
+                  this.field.setValue(this.value)
+              } else {
+                  this.field.removeValue()
+              }
+          },
+          open() {
+            this.opened = true;
+          },
+          close() {
+            this.opened = false;
+          },
+          toggle() {
+            if (this.opened) {
+              this.close()
+            } else {
+              this.open()
+            }
+          }
+      }
+  })
+</script>
+@endsection

@@ -1,4 +1,4 @@
-Vue.component('markdown-editor', {
+export default {
   name: 'markdown-editor',
   template: `<div class="markdown-editor"><textarea :name="name"></textarea></div>`,
   props: {
@@ -80,4 +80,4 @@ Vue.component('markdown-editor', {
       this.simplemde.value(val);
     },
   },
-});
+}

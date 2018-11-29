@@ -1,4 +1,4 @@
-Vue.component("item", {
+export default {
   props: {
     label: {
       required: true
@@ -56,4 +56,4 @@ Vue.component("item", {
     </div>
   </div>
 `
-});
+}

@@ -38,5 +38,31 @@ module.exports = [{
       "fieldTypes": ["Object"]
     },
     data: {},
+  },
+  {
+    extension: {
+      "id": "carousel",
+      "name": "Carousel",
+      "srcdoc": "./extension.html",
+      "fieldTypes": ["Object"]
+    },
+    data: {
+      options: [{
+          text: "Cat 1",
+          content: `<img class="img-fluid" src="http://placekitten.com/1500/600">`,
+          value: 'cat-1'
+        },
+        {
+          text: "Cat 2",
+          content: `<img class="img-fluid" src="http://placekitten.com/1500/650">`,
+          value: 'cat-2'
+        },
+        {
+          text: "Cat 3",
+          content: `<img class="img-fluid" src="http://placekitten.com/1500/650">`,
+          value: 'cat-3'
+        }
+      ]
+    }
   }
 ]

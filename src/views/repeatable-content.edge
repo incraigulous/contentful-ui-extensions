@@ -17,41 +17,33 @@
 
 @section('script')
   <script type="text/javascript">
-    function initExtension (extensionsApi) {
-        extensionsApi.window.startAutoResizer();
-        let field = extensionsApi.field;
-
-        new Vue({
-            el: '#app',
-            data: {
-                items: [],
-                defaults: {
-                  'label': '',
-                   'content': ''
-                }
-            },
-            mounted() {
-              let old = field.getValue()
-                if (old) {
-                    this.items = old;
-                }
-                this.$watch('items', this.handleChange.bind(this), {
-                    deep: true
-                })
-            },
-            methods: {
-                handleChange() {
-                    if (this.items.length) {
-                        field.setValue(this.items)
-                    } else {
-                        field.removeValue()
-                    }
-                }
-            },
-            detach() {
-                detachValueChangeHandler();
+     new Vue({
+        mixins: [extension],
+        data: {
+            items: [],
+            defaults: {
+                'label': '',
+                'content': ''
             }
-        })
-    }
+        },
+        mounted() {
+            let old = this.field.getValue()
+            if (old) {
+                this.items = old;
+            }
+            this.$watch('items', this.handleChange.bind(this), {
+                deep: true
+            })
+        },
+        methods: {
+            handleChange() {
+                if (this.items.length) {
+                    this.field.setValue(this.items)
+                } else {
+                    this.field.removeValue()
+                }
+            }
+        }
+    })
   </script>
 @endsection

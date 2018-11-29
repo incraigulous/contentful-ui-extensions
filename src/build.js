@@ -29,6 +29,7 @@ const render = function ({
     preview: false,
     componentPath: `${repoPath}src/components/`,
     sourcePath: `${repoPath}src/`,
+    distPath: `${repoPath}dist/`,
     data: data
   })
 
@@ -36,6 +37,7 @@ const render = function ({
     preview: true,
     componentPath: '../src/components/',
     sourcePath: '../src/',
+    distPath: '../dist/',
     data: data
   })
 

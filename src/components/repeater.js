@@ -1,4 +1,4 @@
-Vue.component("repeater", {
+export default {
   props: {
     name: {
       default: "item"
@@ -62,4 +62,4 @@ Vue.component("repeater", {
       </div>
       <button class="cf-btn-secondary" @click="add">Add {{ name }} +</button>
     </draggable>`
-});
+};
