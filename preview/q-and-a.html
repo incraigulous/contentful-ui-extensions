@@ -120,16 +120,16 @@
                   'answer': ''
               }
           },
-          mounted() {
-              let old = this.field.getValue()
-              if (old) {
-                  this.items = old;
-              }
-              this.$watch('items', this.handleChange.bind(this), {
-                  deep: true
-              })
-          },
           methods: {
+              initialized() {
+                  let old = this.field.getValue()
+                  if (old) {
+                      this.items = old;
+                  }
+                  this.$watch('items', this.handleChange.bind(this), {
+                      deep: true
+                  })
+              },
               handleChange() {
                   if (this.items.length) {
                       this.field.setValue(this.items)

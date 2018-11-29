@@ -109,7 +109,7 @@
     &quot;value&quot;: &quot;cat-3&quot;
   }
 ]">
-      <div v-if="initialized && opened" class="container padded">
+      <div v-if="initted && opened" class="container padded">
           <carousel 
           v-if="current.content"
           :per-page="1"
@@ -156,8 +156,8 @@
         mixins: [extension],
         el: '#app',
         data: {
-            initialized: false,
-            opened: true,
+            initted: false,
+            opened: false,
             value: '',
             options: []
         },
@@ -177,19 +177,18 @@
               return !this.opened
             }
         },
-        mounted() {
-          this.$watch('value', this.handleChange.bind(this), {
-                deep: true
-            })
-            this.options = JSON.parse(this.$refs.root.dataset.options)
-            let old = this.field.getValue()
-            this.value = old ? old : this.options[1].value
-            this.initialized = true
-        },
         methods: {
+            initialized() {
+              this.$watch('value', this.handleChange.bind(this), {
+                  deep: true
+              })
+              this.options = JSON.parse(this.$refs.root.dataset.options)
+              let old = this.field.getValue()
+              this.value = old ? old : this.options[0].value
+              this.initted = true
+            },
             handleChange() {
                 if (this.value) {
-                    this.open()
                     this.field.setValue(this.value)
                 } else {
                     this.field.removeValue()

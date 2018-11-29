@@ -86,7 +86,7 @@
 
     <script src="https://unpkg.com/contentful-ui-extensions-sdk@3"></script>
     <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/incraigulous/contentful-ui-extensions@1.0.4/dist/extension.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/incraigulous/contentful-ui-extensions@1.1.0/dist/extension.js"></script>
 </head>
 
 <body>
@@ -119,16 +119,16 @@
                   'content': ''
               }
           },
-          mounted() {
-              let old = this.field.getValue()
-              if (old) {
-                  this.items = old;
-              }
-              this.$watch('items', this.handleChange.bind(this), {
-                  deep: true
-              })
-          },
           methods: {
+              initialized() {
+                  let old = this.field.getValue()
+                  if (old) {
+                      this.items = old;
+                  }
+                  this.$watch('items', this.handleChange.bind(this), {
+                      deep: true
+                  })
+              },
               handleChange() {
                   if (this.items.length) {
                       this.field.setValue(this.items)

@@ -158,7 +158,9 @@ window.extension = {
     init: function init(extensionsApi) {
       this.extensionsApi = extensionsApi;
       this.extensionsApi.window.startAutoResizer();
-    }
+      this.initialized();
+    },
+    initialized: function initialized() {}
   }
 };
 

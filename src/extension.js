@@ -42,6 +42,8 @@ window.extension = {
     init(extensionsApi) {
       this.extensionsApi = extensionsApi;
       this.extensionsApi.window.startAutoResizer();
-    }
+      this.initialized()
+    },
+    initialized() {}
   }
 }
