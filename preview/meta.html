@@ -139,6 +139,14 @@
               initialized() {
                   let old = this.field.getValue()
                   if (old) {
+                      if (typeof old === 'string') {
+                          old = JSON.parse(old).map((content, name) => {
+                              return {
+                                  content,
+                                  name
+                              }
+                          }
+                      }
                       this.items = old;
                   }
                   this.$watch('items', this.handleChange.bind(this), {

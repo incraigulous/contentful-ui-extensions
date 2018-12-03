@@ -2,7 +2,7 @@ export default {
   template: ` <div>
     <button class="cf-btn-secondary" @click="handleClick">Choose Asset</button> 
     <div v-if="input">
-      <img :src="this.input" style="margin-top: 15px;">
+      <img :src="this.input" style="margin-top: 15px; max-width: 100%;">
       <button @click="close">
         <icon icon="close"/>
       </button>
