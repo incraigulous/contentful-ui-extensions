@@ -18,7 +18,7 @@ export default {
   methods: {
     handleClick() {
       this.$root.extensionsApi.dialogs.selectSingleAsset().then((selectedAsset) => {
-        this.input = selectedAsset
+        console.log(selectedAsset)
       })
     },
   }

@@ -13827,10 +13827,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/**!
   },
   methods: {
     handleClick: function handleClick() {
-      var _this = this;
-
       this.$root.extensionsApi.dialogs.selectSingleAsset().then(function (selectedAsset) {
-        _this.input = selectedAsset;
+        console.log(selectedAsset);
       });
     }
   }

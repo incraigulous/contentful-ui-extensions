@@ -92,31 +92,46 @@
 
 <body>
 <div id="app">
-  <repeater :items="items" :defaults="defaults">
-        <template slot-scope="repeater">
-            <div class="cf-form-field">
-                <label>Name</label>
-                <input class="cf-form-input" v-model="repeater.item.name" ref="name">
-            </div>
-            <div class="cf-form-field">
-                <label>Content</label>
-                <markdown-editor v-model="repeater.item.content" class="cf-form-input content-field" ref="content"></markdown-editor>
-            </div>
-        </template>
-    </repeater>
+<repeater :items="items"
+  :defaults="defaults"
+  name="tag"
+  label-field="name">
+  <template slot-scope="repeater">
+  <div class="cf-form-field">
+    <label>Name</label>
+    <select class="cf-form-input"
+            v-model="repeater.item.name">
+        <option value="title">title</option>
+        <option value="description">description</option>
+        <option value="keywords">keywords</option>
+        <option value="image">image</option>
+    </select>
+  </div>
+  <div class="cf-form-field">
+    <label>Content</label>
+    <asset v-if="repeater.item.name === 'image'"
+           class="cf-form-input"
+           v-model="repeater.item.content"></asset>
+    <input v-else
+           v-model="repeater.item.content"
+           class="cf-form-input content-field"
+           ref="content">
+  </div>
+  </template>
+  </repeater>
 </div>
 
 <script type="text/javascript">
   'use strict';
 </script>
 
-  <script type="text/javascript">
-       new Vue({
+<script type="text/javascript">
+      new Vue({
           mixins: [extension],
           data: {
               items: [],
               defaults: {
-                  'name': '',
+                  'name': 'title',
                   'content': ''
               }
           },
@@ -139,7 +154,7 @@
               }
           }
       })
-    </script>
+  </script>
 </body>
 
 </html>
