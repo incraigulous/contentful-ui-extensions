@@ -13811,7 +13811,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/**!
 
 "use strict";
 /* harmony default export */ __webpack_exports__["a"] = ({
-  template: ' <div>\n    <button class="cf-btn-secondary" @click="handleClick">Choose Asset</button> \n    <b style="margin-left: 10px;">{{ this.value }}</b>\n  </div>',
+  template: ' <div>\n    <button class="cf-btn-secondary" @click="handleClick">Choose Asset</button> \n    <div v-if="input">\n      <img :src="this.input" style="margin-top: 15px;">\n      <button @click="close">\n        <icon icon="close"/>\n      </button>\n    </div>\n  </div>',
   props: {
     value: String,
     language: {
@@ -13822,8 +13822,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/**!
   },
   computed: {
     input: {
-      get: function get(value) {
-        return value;
+      get: function get() {
+        return this.value;
       },
       set: function set(value) {
         this.$emit('input', value);
@@ -13841,6 +13841,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/**!
           _this.input = null;
         }
       });
+    },
+    close: function close() {
+      this.input = null;
     }
   }
 });

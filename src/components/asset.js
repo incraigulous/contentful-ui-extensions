@@ -1,7 +1,12 @@
 export default {
   template: ` <div>
     <button class="cf-btn-secondary" @click="handleClick">Choose Asset</button> 
-    <b style="margin-left: 10px;">{{ this.value }}</b>
+    <div v-if="input">
+      <img :src="this.input" style="margin-top: 15px;">
+      <button @click="close">
+        <icon icon="close"/>
+      </button>
+    </div>
   </div>`,
   props: {
     value: String,
@@ -13,8 +18,8 @@ export default {
   },
   computed: {
     input: {
-      get(value) {
-        return value
+      get() {
+        return this.value
       },
       set(value) {
         this.$emit('input', value)
@@ -31,5 +36,8 @@ export default {
         }
       })
     },
+    close() {
+      this.input = null
+    }
   }
 }
