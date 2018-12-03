@@ -91,15 +91,15 @@
 
 <body>
 <div id="app">
-  <repeater :items="items" :defaults="defaults" name="question" label-field="question">
+  <repeater :items="items" :defaults="defaults">
         <template slot-scope="repeater">
             <div class="cf-form-field">
-                <label>Question</label>
-                <input class="cf-form-input" v-model="repeater.item.question" ref="label">
+                <label>Name</label>
+                <input class="cf-form-input" v-model="repeater.item.name" ref="name">
             </div>
             <div class="cf-form-field">
-                <label>Answer</label>
-                <markdown-editor v-model="repeater.item.answer" class="cf-form-input content-field" ref="content"></markdown-editor>
+                <label>Content</label>
+                <markdown-editor v-model="repeater.item.content" class="cf-form-input content-field" ref="content"></markdown-editor>
             </div>
         </template>
     </repeater>
@@ -110,13 +110,13 @@
 </script>
 
   <script type="text/javascript">
-      new Vue({
+       new Vue({
           mixins: [extension],
           data: {
               items: [],
               defaults: {
-                  'question': '',
-                  'answer': ''
+                  'name': '',
+                  'content': ''
               }
           },
           methods: {

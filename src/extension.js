@@ -5,6 +5,7 @@ import VueCarousel from 'vue-carousel';
 import Icon from './components/icon'
 import Item from './components/item'
 import Repeater from './components/repeater'
+import Asset from './components/asset'
 
 Vue.use(VueCarousel);
 
@@ -13,7 +14,7 @@ Vue.component('draggable', Draggable)
 Vue.component('icon', Icon)
 Vue.component('item', Item)
 Vue.component('repeater', Repeater)
-
+Vue.component('asset', Asset)
 
 window.Vue = Vue
 

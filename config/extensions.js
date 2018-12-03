@@ -64,5 +64,14 @@ module.exports = [{
         }
       ]
     }
-  }
+  },
+  {
+    extension: {
+      "id": "meta",
+      "name": "Meta",
+      "srcdoc": "./extension.html",
+      "fieldTypes": ["Object"]
+    },
+    data: {},
+  },
 ]

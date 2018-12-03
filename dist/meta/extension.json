@@ -1,0 +1,8 @@
+{
+	"id": "meta",
+	"name": "Meta",
+	"srcdoc": "./extension.html",
+	"fieldTypes": [
+		"Object"
+	]
+}

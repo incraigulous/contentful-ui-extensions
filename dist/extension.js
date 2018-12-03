@@ -113,6 +113,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_icon__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_item__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_repeater__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_asset__ = __webpack_require__(14);
+
 
 
 
@@ -128,6 +130,7 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('draggable', __WEBPACK_IMP
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('icon', __WEBPACK_IMPORTED_MODULE_4__components_icon__["a" /* default */]);
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('item', __WEBPACK_IMPORTED_MODULE_5__components_item__["a" /* default */]);
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('repeater', __WEBPACK_IMPORTED_MODULE_6__components_repeater__["a" /* default */]);
+__WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('asset', __WEBPACK_IMPORTED_MODULE_7__components_asset__["a" /* default */]);
 
 window.Vue = __WEBPACK_IMPORTED_MODULE_0_vue___default.a;
 
@@ -13800,6 +13803,37 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/**!
     }
   },
   template: '\n    <draggable class="repeater" :list="items" :options="{\'handle\': \'.repeater-handle\'}" @change="handleSort">\n      <div v-for="(item, i) in items" :key="i">\n        <div class="repeater-item">\n          <div class="repeater-handle">\n              <icon icon="handle" width="9" height="20" />\n          </div>\n          <item :label="item[labelField] ? item[labelField] : \'Untitled Item\'" :opened="shouldOpenNext">\n            <slot :item="item" :index="i"></slot>\n            <template slot="controls">\n                <span @click.prevent="remove(i)">\n                <icon icon="close" />\n                </span>\n            </template>\n          </item>\n        </div>\n      </div>\n      <button class="cf-btn-secondary" @click="add">Add {{ name }} +</button>\n    </draggable>'
+});
+
+/***/ }),
+/* 14 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = ({
+  template: ' <div>\n    <button class="cf-btn-secondary" @click="handleClick">Choose Asset</button>\n  </div>',
+  props: {
+    value: String
+  },
+  computed: {
+    input: {
+      get: function get(value) {
+        return value;
+      },
+      set: function set(value) {
+        this.$emit('input', value);
+      }
+    }
+  },
+  methods: {
+    handleClick: function handleClick() {
+      var _this = this;
+
+      this.$root.extensionsApi.dialogs.selectSingleAsset().then(function (selectedAsset) {
+        _this.input = selectedAsset;
+      });
+    }
+  }
 });
 
 /***/ })

@@ -1,0 +1,49 @@
+@layout('layouts.layout')
+
+@section('template')
+  <repeater :items="items" :defaults="defaults">
+      <template slot-scope="repeater">
+          <div class="cf-form-field">
+              <label>Name</label>
+              <input class="cf-form-input" v-model="repeater.item.name" ref="name">
+          </div>
+          <div class="cf-form-field">
+              <label>Content</label>
+              <markdown-editor v-model="repeater.item.content" class="cf-form-input content-field" ref="content"></markdown-editor>
+          </div>
+      </template>
+  </repeater>
+@endsection
+
+@section('script')
+  <script type="text/javascript">
+     new Vue({
+        mixins: [extension],
+        data: {
+            items: [],
+            defaults: {
+                'name': '',
+                'content': ''
+            }
+        },
+        methods: {
+            initialized() {
+                let old = this.field.getValue()
+                if (old) {
+                    this.items = old;
+                }
+                this.$watch('items', this.handleChange.bind(this), {
+                    deep: true
+                })
+            },
+            handleChange() {
+                if (this.items.length) {
+                    this.field.setValue(this.items)
+                } else {
+                    this.field.removeValue()
+                }
+            }
+        }
+    })
+  </script>
+@endsection

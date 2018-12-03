@@ -109,9 +109,8 @@
     &quot;value&quot;: &quot;cat-3&quot;
   }
 ]">
-      <div v-if="initted && opened" class="container padded">
+      <div v-if="initted && opened && current && current.content" class="container padded">
           <carousel 
-          v-if="current.content"
           :per-page="1"
           :loop="true"
           :navigation-enabled="true"
@@ -120,7 +119,7 @@
           :navigate-to="selectedIndex"
           v-model="selectedIndex">
         <slide 
-          v-for="({content, value}, index) in options"
+          v-for="({content, value}, index) in previewableOptions"
           :key="index"
           v-html="content" />
         </carousel>
@@ -134,6 +133,7 @@
           <div style="display: flex;">
             <div>
                 <select class="cf-form-input" type="text" v-model="value">
+                    <option value="">Choose...</option>
                     <option v-for="({text, value}, index) in options" :key="index" :value="value" v-text="text"></option>
                 </select>
             </div>
@@ -175,6 +175,11 @@
             },
             closed() {
               return !this.opened
+            },
+            previewableOptions() {
+              return this.options.filter(option => {
+                return typeof option.content === 'string'
+              })
             }
         },
         methods: {
