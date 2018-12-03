@@ -46,12 +46,14 @@ label-field="name">
                 let old = this.field.getValue()
                 if (old) {
                     if (typeof old === 'string') {
-                        old = JSON.parse(old).map((content, name) => {
+                        old = JSON.parse(old)
+
+                        old = Object.entries(old).map(item => {
                             return {
-                                content,
-                                name
+                                name: item[0],
+                                content: item[1]
                             }
-                        }
+                        })
                     }
                     this.items = old;
                 }
