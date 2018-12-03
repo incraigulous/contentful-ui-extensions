@@ -13811,9 +13811,14 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/**!
 
 "use strict";
 /* harmony default export */ __webpack_exports__["a"] = ({
-  template: ' <div>\n    <button class="cf-btn-secondary" @click="handleClick">Choose Asset</button>\n  </div>',
+  template: ' <div>\n    <button class="cf-btn-secondary" @click="handleClick">Choose Asset</button> \n    <b style="margin-left: 10px;">{{ this.value }}</b>\n  </div>',
   props: {
-    value: String
+    value: String,
+    language: {
+      default: function _default() {
+        return ['en-US'];
+      }
+    }
   },
   computed: {
     input: {
@@ -13827,8 +13832,14 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/**!
   },
   methods: {
     handleClick: function handleClick() {
+      var _this = this;
+
       this.$root.extensionsApi.dialogs.selectSingleAsset().then(function (selectedAsset) {
-        console.log(selectedAsset);
+        if (selectedAsset) {
+          _this.input = 'https:' + selectedAsset.fields.file[_this.language].url;
+        } else {
+          _this.input = null;
+        }
       });
     }
   }

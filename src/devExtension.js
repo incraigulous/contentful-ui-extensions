@@ -11,7 +11,15 @@ const extensionsApiMock = {
   },
   dialogs: {
     selectSingleAsset() {
-      return Promise.resolve('http://placekitten.com/200/300');
+      return Promise.resolve({
+        fields: {
+          file: {
+            'en-US': {
+              url: '//placekitten.com/200/300'
+            }
+          }
+        }
+      });
     }
   }
 };
