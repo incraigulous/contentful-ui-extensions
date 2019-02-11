@@ -44,22 +44,26 @@ label-field="name">
         methods: {
             initialized() {
                 let old = this.field.getValue()
+                
+                this.$watch('items', this.handleChange.bind(this), {
+                    deep: true
+                })
+
                 if (old) {
                     if (typeof old === 'string') {
                         old = JSON.parse(old)
-
-                        old = Object.entries(old).map(item => {
+                    }
+                    if (typeof old === 'object' && old instanceof Array) {
+                        this.items = old;
+                    } else if (typeof old === 'object') {
+                        this.items = Object.entries(old).map(item => {
                             return {
                                 name: item[0],
                                 content: item[1]
                             }
                         })
                     }
-                    this.items = old;
                 }
-                this.$watch('items', this.handleChange.bind(this), {
-                    deep: true
-                })
             },
             handleChange() {
                 if (this.items.length) {

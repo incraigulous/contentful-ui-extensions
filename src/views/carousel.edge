@@ -79,7 +79,9 @@
             })
             this.options = JSON.parse(this.$refs.root.dataset.options)
             let old = this.field.getValue()
-            this.value = old ? old : this.options[0].value
+            if (old) {
+                this.value = old
+            }
             this.initted = true
           },
           handleChange() {

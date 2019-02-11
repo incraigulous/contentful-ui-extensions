@@ -1,0 +1,8 @@
+{
+	"id": "parallax-items",
+	"name": "Parallax Images",
+	"srcdoc": "./extension.html",
+	"fieldTypes": [
+		"Object"
+	]
+}

@@ -74,4 +74,13 @@ module.exports = [{
     },
     data: {},
   },
+  {
+    extension: {
+      "id": "parallax-items",
+      "name": "Parallax Images",
+      "srcdoc": "./extension.html",
+      "fieldTypes": ["Object"]
+    },
+    data: {},
+  }
 ]

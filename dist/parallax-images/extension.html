@@ -86,37 +86,22 @@
 
     <script src="https://unpkg.com/contentful-ui-extensions-sdk@3"></script>
     <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/incraigulous/contentful-ui-extensions@1.2.6/dist/extension.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/incraigulous/contentful-ui-extensions@1.2.5/dist/extension.js"></script>
 </head>
 
 <body>
 <div id="app">
-  <repeater :items="buttons" :defaults="defaults">
-      <template slot-scope="repeater">
-          <div class="cf-form-field">
-              <label>Label</label>
-              <input class="cf-form-input"
-                     v-model="repeater.item.label"
-                     ref="label">
-          </div>
-          <div class="cf-form-field">
-              <label>Color</label>
-              <select class="cf-form-input"
-                      v-model="repeater.item.color"
-                      ref="color">
-                      <option value="transparent">Transparent</option>
-                    <option value="white">White</option>
-                    <option value="black">Black</option>
-
-              </select>
-          </div>
-          <div class="cf-form-field">
-              <label>Link</label>
-              <input class="cf-form-input"
-                     v-model="repeater.item.link"
-                     ref="link">
-          </div>
-      </template>
+  <repeater :items="items" :defaults="defaults" name="question" label-field="question">
+        <template slot-scope="repeater">
+            <div class="cf-form-field">
+                <label>Image</label>
+                <input class="cf-form-input" v-model="repeater.item.question" ref="label">
+            </div>
+            <div class="cf-form-field">
+                <label>Answer</label>
+                <markdown-editor v-model="repeater.item.answer" class="cf-form-input content-field" ref="content"></markdown-editor>
+            </div>
+        </template>
     </repeater>
 </div>
 
@@ -128,26 +113,25 @@
       new Vue({
           mixins: [extension],
           data: {
-              buttons: [],
+              items: [],
               defaults: {
-                  'label': '',
-                  'color': 'transparent',
-                  'link': ''
+                  'question': '',
+                  'answer': ''
               }
-          },
-          mounted() {
-              let old = this.field.getValue()
-              if (old) {
-                  this.buttons = old;
-              }
-              this.$watch('buttons', this.handleChange.bind(this), {
-                  deep: true
-              })
           },
           methods: {
+              initialized() {
+                  let old = this.field.getValue()
+                  if (old) {
+                      this.items = old;
+                  }
+                  this.$watch('items', this.handleChange.bind(this), {
+                      deep: true
+                  })
+              },
               handleChange() {
-                  if (this.buttons.length) {
-                      this.field.setValue(JSON.stringify(this.buttons))
+                  if (this.items.length) {
+                      this.field.setValue(this.items)
                   } else {
                       this.field.removeValue()
                   }
