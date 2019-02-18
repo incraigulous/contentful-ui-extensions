@@ -76,10 +76,10 @@ module.exports = [{
   },
   {
     extension: {
-      "id": "parallax-items",
-      "name": "Parallax Images",
+      "id": "accents",
+      "name": "Accents",
       "srcdoc": "./extension.html",
-      "fieldTypes": ["Object"]
+      "fieldTypes": ["Symbol"]
     },
     data: {},
   }

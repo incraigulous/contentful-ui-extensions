@@ -1,0 +1,103 @@
+@layout('layouts.layout')
+
+@section('template')
+  <div ref="root">
+    <button class="cf-btn-secondary" @click.prevent="toggle" v-if="!value && !opened">Choose accents...</button>
+    <div v-else>
+        <div v-if="opened" style="margin-bottom: 25px;">
+            <div style="display: flex; justify-content: space-between; flex-wrap: wrap">
+              <div @click="select(option.value)" v-for="(option, index) in options" style="flex-basis: 49%; display: block; white-space: normal;" :class="{'cf-btn-secondary': true, active: value && value === option.value}">
+                  <div>
+                    <img 
+                  class="img-fluid"
+                  :key="index"
+                  :src="option.src" 
+                  />
+                  </div>
+                  <div v-text="option.text"></div>
+              </div>
+            </div>
+          </div>
+      
+          <button class="cf-btn-secondary" @click.prevent="toggle" v-text="opened ? 'Close' : value" v-if="value"></button>
+          <button class="cf-btn-secondary" @click.prevent="reset">Remove Accents</button>
+        </div>
+    </div>
+@endsection
+
+@section('script')
+<script type="text/javascript">
+  new Vue({
+      mixins: [extension],
+      el: '#app',
+      data: {
+          opened: false,
+          value: '',
+          options: [
+            {
+              text: "White Accents",
+              src: "https://images.ctfassets.net/0oan5gk9rgbh/7aM53Sn0WIcwyKcISGe8ka/50ac64bd97509e881d5f44c873a09183/accents-preview-1.png",
+              value: "white-accents-1"
+            },
+            {
+              text: "Color Accents",
+              src: "https://images.ctfassets.net/0oan5gk9rgbh/6amLYHy8MwceqyyCKSAG4M/c7aecf7727efc2d2e80125dcc2d0d404/accents-preview-1.png",
+              value: "color-accents-1"
+            }
+          ]
+      },
+      computed: {
+          selectedIndex: {
+              get() {
+                  return this.options.findIndex(option => option.value === this.value)
+              },
+              set(index) {
+                  this.value = this.options[index].value
+              }
+          },
+          current() {
+            return this.options.find(option => option.value === this.value)
+          },
+          closed() {
+            return !this.opened
+          }
+      },
+      methods: {
+          initialized() {
+            this.$watch('value', this.handleChange.bind(this))
+            let old = this.field.getValue()
+            if (old) {
+                this.value = old
+            }
+          },
+          select(value) {
+            this.value = value
+          },
+          reset() {
+            this.value = null
+            this.close()
+          },
+          handleChange() {
+              if (this.value) {
+                  this.field.setValue(this.value)
+              } else {
+                  this.field.removeValue()
+              }
+          },
+          open() {
+            this.opened = true;
+          },
+          close() {
+            this.opened = null;
+          },
+          toggle() {
+            if (this.opened) {
+              this.close()
+            } else {
+              this.open()
+            }
+          }
+      }
+  })
+</script>
+@endsection

@@ -95,59 +95,28 @@
 
 <body>
 <div id="app">
-  <div class="carousel" ref="root" data-options="[
-  {
-    &quot;text&quot;: &quot;Cat 1&quot;,
-    &quot;content&quot;: &quot;&lt;img class=\&quot;img-fluid\&quot; src=\&quot;http://placekitten.com/1500/600\&quot;&gt;&quot;,
-    &quot;value&quot;: &quot;cat-1&quot;
-  },
-  {
-    &quot;text&quot;: &quot;Cat 2&quot;,
-    &quot;content&quot;: &quot;&lt;img class=\&quot;img-fluid\&quot; src=\&quot;http://placekitten.com/1500/650\&quot;&gt;&quot;,
-    &quot;value&quot;: &quot;cat-2&quot;
-  },
-  {
-    &quot;text&quot;: &quot;Cat 3&quot;,
-    &quot;content&quot;: &quot;&lt;img class=\&quot;img-fluid\&quot; src=\&quot;http://placekitten.com/1500/650\&quot;&gt;&quot;,
-    &quot;value&quot;: &quot;cat-3&quot;
-  }
-]">
-      <div v-if="initted && opened && current && current.content" class="container padded">
-          <carousel 
-          :per-page="1"
-          :loop="true"
-          :navigation-enabled="true"
-          :pagination-enabled="false"
-          :adjustable-height="false"
-          :navigate-to="selectedIndex"
-          v-model="selectedIndex">
-        <slide 
-          v-for="({content, value}, index) in previewableOptions"
-          :key="index"
-          v-html="content" />
-        </carousel>
-
-        <div class="cf-form-hint" style="text-align: center;">
-            Change slides to change your selection.
-        </div>
-      </div>
-
-      <div class="cf-form-field">
-          <div style="display: flex;">
-            <div>
-                <select class="cf-form-input" type="text" v-model="value">
-                    <option value="">Choose...</option>
-                    <option v-for="({text, value}, index) in options" :key="index" :value="value" v-text="text"></option>
-                </select>
-            </div>
-           <div style="padding-left: 25px; display: flex;">
-              <div style="display: flex; justify-content: center; align-items: center;"  @click.prevent="toggle" >
-                  <icon :icon="opened ? 'hide' : 'show'"/>
+  <div ref="root">
+      <button class="cf-btn-secondary" @click.prevent="toggle" v-if="!value && !opened">Choose accents...</button>
+      <div v-else>
+          <div v-if="opened" style="margin-bottom: 25px;">
+              <div style="display: flex; justify-content: space-between; flex-wrap: wrap">
+                <div @click="select(option.value)" v-for="(option, index) in options" style="flex-basis: 49%; display: block; white-space: normal;" :class="{'cf-btn-secondary': true, active: value && value === option.value}">
+                    <div>
+                      <img 
+                    class="img-fluid"
+                    :key="index"
+                    :src="option.src" 
+                    />
+                    </div>
+                    <div v-text="option.text"></div>
+                </div>
               </div>
-           </div>
+            </div>
+      
+            <button class="cf-btn-secondary" @click.prevent="toggle" v-text="opened ? 'Close' : value" v-if="value"></button>
+            <button class="cf-btn-secondary" @click.prevent="reset">Remove Accents</button>
           </div>
       </div>
-    </div>
 </div>
 
 <script type="text/javascript">
@@ -159,10 +128,20 @@
         mixins: [extension],
         el: '#app',
         data: {
-            initted: false,
             opened: false,
             value: '',
-            options: []
+            options: [
+              {
+                text: "White Accents",
+                src: "https://images.ctfassets.net/0oan5gk9rgbh/7aM53Sn0WIcwyKcISGe8ka/50ac64bd97509e881d5f44c873a09183/accents-preview-1.png",
+                value: "white-accents-1"
+              },
+              {
+                text: "Color Accents",
+                src: "https://images.ctfassets.net/0oan5gk9rgbh/6amLYHy8MwceqyyCKSAG4M/c7aecf7727efc2d2e80125dcc2d0d404/accents-preview-1.png",
+                value: "color-accents-1"
+              }
+            ]
         },
         computed: {
             selectedIndex: {
@@ -178,24 +157,22 @@
             },
             closed() {
               return !this.opened
-            },
-            previewableOptions() {
-              return this.options.filter(option => {
-                return typeof option.content === 'string'
-              })
             }
         },
         methods: {
             initialized() {
-              this.$watch('value', this.handleChange.bind(this), {
-                  deep: true
-              })
-              this.options = JSON.parse(this.$refs.root.dataset.options)
+              this.$watch('value', this.handleChange.bind(this))
               let old = this.field.getValue()
               if (old) {
                   this.value = old
               }
-              this.initted = true
+            },
+            select(value) {
+              this.value = value
+            },
+            reset() {
+              this.value = null
+              this.close()
             },
             handleChange() {
                 if (this.value) {
@@ -208,7 +185,7 @@
               this.opened = true;
             },
             close() {
-              this.opened = false;
+              this.opened = null;
             },
             toggle() {
               if (this.opened) {

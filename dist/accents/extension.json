@@ -1,0 +1,8 @@
+{
+	"id": "accents",
+	"name": "Accents",
+	"srcdoc": "./extension.html",
+	"fieldTypes": [
+		"Symbol"
+	]
+}
